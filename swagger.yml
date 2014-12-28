@@ -391,3 +391,9 @@ definitions:
         type: integer
         description: Time in seconds
       #[{"date":"2014-12-27","message":"You had a restless nights sleep","tip":"","sessions":[{"startDate":"2014-12-26T22:32:13","endDate":"2014-12-27T09:16:43","longest":true,"sleepNumber":35,"sleepQuotient":65,"avgHeartRate":64,"avgRespirationRate":14,"totalSleepSessionTime":38666,"inBed":38529,"outOfBed":137,"restful":35061,"restless":3468}]}]}
+securityDefinitions:
+  sessionSecurity:
+    name: Cookie
+    type: apiKey
+    in: header
+    description: JSESSIONID={jsessionId}; AWSELB={awsElb}
