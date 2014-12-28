@@ -38,7 +38,9 @@ bam-wpa=<public key>
 * Webapp is an Angular.js app
 * Phone pairs with bed via bluetooth but is not a discoverable device on my Mac.
 * Tech Stack seems to be Java based and hosted in AWS.
-* Sessions and ELBs are sticky
+* Sessions and ELBs are sticky and Cookies are required for the API, only `JSESSIONID` and `AWSELB` are required.
+* Passwords are limited to 30 characters, but no feedback is given. If you create a password that is 35 characters long it will save, then delete 5 characters and you can login.
+* Cookie has user/pass in it, not marked as http-only or secure. Pen testers are rolling over in their graves.
 
 # Todo
 * Render Swagger API
