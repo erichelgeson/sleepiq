@@ -1,0 +1,401 @@
+swagger: '2.0'
+info:
+  title: SleepIQ API
+  description: Unofficial Documentation of the SleepIQ API.
+  version: "1.0.0"
+host: sleepiq.sleepnumber.com
+schemes:
+  - https
+basePath: /rest
+produces:
+  - application/json
+paths:
+  /login:
+    put:
+      summary: Login
+      description: |
+        Login to the site with username and password. Cookies are important - State seems to be tied to a loadbalancer.
+      parameters:
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+        - name: login
+          in: body
+          description: Body to PUT
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        200:
+          description: Key and UserID
+          schema:
+            $ref: '#/definitions/Session'
+  /beds:
+    get:
+      summary: Get bed info
+      description: |
+        Get Beds
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+      responses:
+        200:
+          description: An array of Beds
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Beds'
+  /bed/{bedId}:
+    get:
+      summary: Bed details
+      description: Get details of the bed.
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+        - name: bedId
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/Bed'
+  /bed/{bedId}/status:
+    get:
+      summary: Get Live status of the bed
+      description: Live status of bed
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+        - name: bedId
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/Bed'
+  /bed/{bedId}/pauseMode:
+    get:
+      summary: Bed Pause Mode
+      description: Unknown
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+        - name: bedId
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: Pause mode status for a bed.
+          schema:
+            $ref: '#/definitions/PauseMode'
+  /sleepers:
+    get:
+      summary: test
+      description: test
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+      responses:
+        200:
+          description: List of sleepers and details
+          schema:
+            $ref: '#/definitions/Sleepers'
+  /sleepData:
+    get:
+      summary: Sleep Activity
+      description: Returns the sleep data for a secific date in JSON or CSV
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+        - name: date
+          in: query
+          type: string
+          description: Format YYY-MM-DD
+          required: true
+        - name: interval
+          in: query
+          type: string
+          description: D1 is 1 Day, M1 is 1 Month.
+          required: true
+        - name: sleeper
+          in: query
+          type: string
+          description: sleeprId of the person to get the data from.
+          required: true
+        - name: format
+          in: query
+          type: string
+          description: Set format=CSV to export data
+      responses:
+        200:
+          description: Sleep data for sleeper
+          schema:
+            $ref: '#/definitions/SleepData'
+  /sleepSliceData:
+    get:
+      summary: Get time series data of sleep.
+      description: Returns an array sliceList of states of sleep to display on a graph.
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+        - name: date
+          in: query
+          type: string
+          description: Format YYY-MM-DD
+          required: true
+        - name: sleeper
+          in: query
+          type: string
+          description: sleeprId of the person to get the data from.
+      responses:
+        200:
+          description: Sleep data for sleeper
+  /registration:
+    get:
+      summary: Registration State
+      description: Returns AccountID and RegistrationState
+      parameters:
+        - name: _
+          in: query
+          description: Account Number
+          required: true
+          type: number
+          format: integer
+        - name: _k
+          in: query
+          description: Session Key
+          required: true
+          type: string
+      responses:
+        200:
+          description: Registration
+          schema:
+            type: object
+            items:
+              accountId:
+                type: string
+              registrationState:
+                type: integer
+definitions:
+  Login:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+  Session:
+    properties:
+      userId:
+        type: string
+      key:
+        type: string
+  Bed:
+    properties:
+      status:
+        type: integer
+        description: unkown
+      leftSide:
+        type: object
+        isInBed:
+          type: boolean
+        alertDetailedMessage:
+          type: string
+        sleepNumber:
+          type: integer
+        lastLink:
+          type: string
+        presure:
+          type: integer
+          description: unkown units of presure
+  Beds:
+    properties:
+      sleeperRightId:
+        type: string
+      name:
+        type: string
+        description: By default, the MAC address of the Bed
+      serial:
+        type: string
+        description: blank
+      dualSleep:
+        type: boolean
+        description: True if two sleepers.
+      bedId:
+        type: string
+      sleeperLeftId:
+        type: string
+      version:
+        type: string
+        description: blank
+      accountId:
+        type: string
+      model:
+        type: string
+        description: SleepNumber model, eg ILE
+      purchaseDate:
+        type: string
+        description: Date in ISO 8601 format of purchase
+      macAddress:
+        type: string
+      sku:
+        type: string
+      reference:
+        type: string
+        description: unknown
+  Sleepers:
+    properties:
+      sleeperId:
+        type: string
+      firstName:
+        type: string
+      height:
+        type: integer
+        description: Height of sleeper in inches.
+      licenseVersion:
+        type: integer
+        description: unkown
+      username:
+        type: string
+        description: Email address of the User
+      active:
+        type: boolean
+      emailValidated:
+        type: boolean
+      sleepGoal:
+        type: integer
+      bedId:
+        type: string
+      accountId:
+        type: string
+      zipCode:
+        type: string
+        description: xxxxx-xxxx
+      birthYear:
+        type: string
+        description: YYYY
+      timezone:
+        type: string
+        description: "US/Central"
+      email:
+        type: string
+      avatar:
+        type: string
+      isMale:
+        type: boolean
+      lastLogin:
+        type: string
+        description: Timestamp of last login - 2014-12-28 08:42:33 CST
+      weight:
+        type: integer
+        description: Weight in LBS
+      side:
+        type: boolean
+        description: 0 - left; 1 - right
+  PauseMode:
+    properties:
+      accountId:
+        type: string
+      bedId:
+        type: string
+      pauseMode:
+        type: boolean
+        description: unkown
+  SleepData:
+    properties:
+      message:
+        type: string
+      tip:
+        type: string
+        description: Tip to help inprove sleep
+      avgHeartRate:
+        type: integer
+        description: BPM
+      avgRespirationRate:
+        type: integer
+        description: Breaths Per Minute (BrPM)
+      totalSleepSessionTime:
+        type: integer
+        description: Time in seconds
+      inBed:
+        type: integer
+        description: Time in seconds
+      outOfBed:
+        type: integer
+        description: Time in seconds
+      restful:
+        type: integer
+        description: Time in seconds
+      restless:
+        type: integer
+        description: Time in seconds
+      #[{"date":"2014-12-27","message":"You had a restless nights sleep","tip":"","sessions":[{"startDate":"2014-12-26T22:32:13","endDate":"2014-12-27T09:16:43","longest":true,"sleepNumber":35,"sleepQuotient":65,"avgHeartRate":64,"avgRespirationRate":14,"totalSleepSessionTime":38666,"inBed":38529,"outOfBed":137,"restful":35061,"restless":3468}]}]}
