@@ -40,8 +40,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -63,8 +62,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -88,8 +86,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -113,8 +110,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -138,8 +134,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -159,8 +154,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -199,8 +193,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
@@ -227,8 +220,7 @@ paths:
       parameters:
         - name: _
           in: query
-          description: Account Number
-          required: true
+          description: Epoch timestamp in ms eg 1419806760011
           type: number
           format: integer
         - name: _k
