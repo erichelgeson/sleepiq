@@ -4,8 +4,8 @@ My bed has an API, so I may as well document it.
 <https://sleepiq.sleepnumber.com/>
 
 ## APIs
-### swagger.yml
-This file contains the API documentation in http://swagger.io format.
+### [swagger.yml](swagger.yml)
+This file contains the API documentation in `http://swagger.io` format.
 
 ### Other
 There are a few other endpoints not under the `/rest` api the Angular web app uses.
