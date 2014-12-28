@@ -10,7 +10,7 @@ This file contains the API documentation in `http://swagger.io` format.
 Preview/edit the docs here: <http://editor.swagger.io/#/preview?import=https://cdn.rawgit.com/erichelgeson/sleepiq/master/swagger.yml>
 
 ### Other
-There are a few other endpoints not under the `/rest` api the Angular web app uses.
+There are a few other endpoints not under the `/rest` api the Ember web app uses.
 
 * http://svcsleepiq.sleepnumber.com/bam/device/getConfig.jsp
 * http://svcsleepiq.sleepnumber.com/bam/device/getSoftware.jsp
